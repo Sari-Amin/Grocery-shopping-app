@@ -7,14 +7,12 @@ import '../../../../../core/Text_Style/text_style.dart';
 import '../../../../../core/constant/width_height.dart';
 import '../../../../../core/utility/loading_page.dart';
 import '../../../../../core/utility/socket_impl.dart';
-import '../../../../chat/presentation/bloc/chat_bloc.dart';
-import '../../../../chat/presentation/bloc/chat_event.dart';
+import '../../bloc/cart/cart_bloc.dart';
+import '../../bloc/cart/cart_event.dart';
 import '../../bloc/grocery_bloc/grocery_bloc.dart';
 import '../../bloc/grocery_bloc/grocery_event.dart';
 import '../../bloc/grocery_bloc/grocery_state.dart';
-import '../../bloc/cart/cart_bloc.dart';
-import '../../bloc/cart/cart_event.dart';
-import 'header.dart';
+// import 'header.dart';
 import 'product_image.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,32 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
     
 
     super.initState();
-    context.read<LoginUserStatesBloc>().add(ProfileDetail());
-    context.read<ProductBloc>().add(const LoadAllProductEvent());
-    context.read<ChatBloc>().add(OnGetAllChat());
+    context.read<GroceryBloc>().add(const LoadAllGroceryEvent());
+    context.read<CartBloc>().add(GetAllCartEvent());
     
-    _setupSocketListeners();
 
   }
-  Future<void> _setupSocketListeners() async {
-    // Ensure the socket is connected
-    await socketService.connect();
-    print('connected');
-    // Set up the event listeners
-    socketService.listen('message:received', (data) {
-      // Handle the received message here
-      print('Message received: $data');
-    });
 
-    // Add other event listeners as needed
-  }
-
-  @override
-  void dispose() {
-    // Disconnect the socket when the page is disposed
-    socketService.disconnect();
-    super.dispose();
-  }
   @override
   Widget build(BuildContext context) {
     double width = WidthHeight.screenWidth(context);
@@ -69,14 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         body: RefreshIndicator(
           onRefresh: () {
-            context.read<ProductBloc>().add(const LoadAllProductEvent());
-            context.read<ChatBloc>().add(OnGetAllChat());
+            context.read<GroceryBloc>().add(const LoadAllGroceryEvent());
+            context.read<CartBloc>().add(GetAllCartEvent());
             socketService.connect();
             return Future.delayed(const Duration(seconds: 1));
           },
-          child: BlocConsumer<ProductBloc, ProductState>(
+          child: BlocConsumer<GroceryBloc, GroceryState>(
             listener: (context, state) {
-              if(state is ProductErrorState){
+              if(state is GroceryErrorState){
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(state.messages))
                   
@@ -90,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     // Header part
-                    const HeaderPart(),
+                    // const HeaderPart(),
                     // Body part
                     const SizedBox(height: 20),
                     Expanded(
@@ -154,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10,
                             ),
                             Expanded(
-                              child: (state is LoadedAllProductState)?
+                              child: (state is LoadedAllGroceryState)?
                               
                               ClipRRect(
                                 borderRadius: const BorderRadius.only(
@@ -163,18 +141,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 child: ListView.builder(
                                   
-                                  itemCount: state.products.length,
+                                  itemCount: state.groceries.length,
                                   itemBuilder: (context, index){
-                                    final product = state.products[index];
-                                    dataProduct = state.products;
-                                    return ProductImage(
+                                    final product = state.groceries[index];
+                                    dataProduct = state.groceries;
+                                    return GroceryImage(
                                       imageUrl: product.imageUrl,
                                       price: product.price,
                                       disc: product.description,
                                       title: product.name,
                                       id: product.id,
-                                      senderId: product.sellerId,
-                                      senderName: product.sellerName,
+                                      discount: product.discount,
+                                      options: product.options,
+                                      rating: product.rating,
+
                                     );
                                   }),
                               ): state is LoadingState? ListView.builder(
@@ -189,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           children:[
                                            const Text('try again'),
                                            ElevatedButton(
-                                             onPressed: () => context.read<ProductBloc>().add(const LoadAllProductEvent()),
+                                             onPressed: () => context.read<GroceryBloc>().add(const LoadAllGroceryEvent()),
                                              child: const Icon(Icons.refresh),
                                            )]),
                                           
