@@ -2,72 +2,47 @@
 
 
 import 'package:equatable/equatable.dart';
+import '../../../Domain/entity/grocery_entity.dart';
 
-import '../../../Domain/entity/ecommerce_entity.dart';
-
-abstract class ProductState extends Equatable{
-  const ProductState();
+abstract class GroceryState extends Equatable{
+  const GroceryState();
 
   @override
   List<Object ?> get props => [];
 }
 
-class ProductIntialState extends ProductState {}
+class GroceryIntialState extends GroceryState {}
 
-class LoadedSingleProductState extends ProductState {
-  final EcommerceEntity product;
+class LoadedSingleGroceryState extends GroceryState {
+  final GroceryEntity grocery;
 
-  const LoadedSingleProductState ({
-    required this.product
+  const LoadedSingleGroceryState ({
+    required this.grocery
   });
 
   @override
-  List<Object ?> get props => [product];
+  List<Object ?> get props => [grocery];
 }
 
-class LoadedAllProductState extends ProductState {
-  final List<EcommerceEntity> products;
+class LoadedAllGroceryState extends GroceryState {
+  final List<GroceryEntity> groceries;
 
-  const LoadedAllProductState ({
-    required this.products
-  });
-
-  @override
-
-  List<Object ?> get props => [products]; 
-}
-
-class SuccessDelete extends ProductState {
-  final bool deleted;
-
-  const SuccessDelete ({
-    required this.deleted
+  const LoadedAllGroceryState ({
+    required this.groceries,
   });
 
   @override
 
-  List<Object?> get props => [deleted];
-}
-
-
-class SuccessAdd extends ProductState {
-  final bool add;
-
-  const SuccessAdd ({
-    required this.add
-  });
-
-  @override
-
-  List<Object?> get props => [add];
+  List<Object ?> get props => [groceries]; 
 }
 
 
 
-class ProductErrorState extends ProductState {
+
+class GroceryErrorState extends GroceryState {
   final String messages;
 
-  const ProductErrorState ({
+  const GroceryErrorState ({
     required this.messages
   });
 
@@ -78,5 +53,5 @@ class ProductErrorState extends ProductState {
 
 
 
-class LoadingState extends ProductState {}
+class LoadingState extends GroceryState {}
 

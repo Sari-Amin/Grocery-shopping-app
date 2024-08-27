@@ -5,70 +5,48 @@ import '../../../Domain/usecase/grocery_usecase.dart';
 import 'grocery_event.dart';
 import 'grocery_state.dart';
 
-class ProductBloc  extends Bloc<ProductEvent,ProductState>{
-  final EcommerceUsecase ecommerceUsecase;
+class GroceryBloc  extends Bloc<GroceryEvent, GroceryState>{
+  final GroceryUsecase groceryUsecase;
 
-  ProductBloc ({
-    required this.ecommerceUsecase
-  }):super(ProductIntialState()){
-    // on<On
-    
+  GroceryBloc ({
+    required this.groceryUsecase
+  }):super(GroceryIntialState()){
+   
 
-    on<GetSingleProductEvent>(
+    on<GetSingleGroceryEvent>(
       (event,emit) async{
         emit(LoadingState());
-        final result = await ecommerceUsecase.dataById(event.id);
+        final result = await groceryUsecase.getGroceryById(event.id);
 
         result.fold(
           (failure){
             
-            emit(const ProductErrorState(messages: 'try again'));
+            emit(const GroceryErrorState(messages: 'try again'));
           },
           (data) {
-            emit(LoadedSingleProductState(product: data));
+            emit(LoadedSingleGroceryState(grocery: data));
           }
         );
 
       }
     );
 
-    on<LoadAllProductEvent>(
+    on<LoadAllGroceryEvent>(
       (event,emit) async{
         emit(LoadingState());
-        final result = await ecommerceUsecase.dataForAll();
+        final result = await groceryUsecase.displayAllGroceries();
 
         result.fold(
           (failure){
             
-            emit(const ProductErrorState(messages: 'try again'));
+            emit(const GroceryErrorState(messages: 'try again'));
           },
           (data) {
-            emit(LoadedAllProductState(products: data));
+            emit(LoadedAllGroceryState(groceries: data));
           }
         );
 
       }
     );
-
-    on<DeleteProductEvent>(
-      (event,emit) async {
-        emit(LoadingState());
-        final result = await ecommerceUsecase.deleteProduct(event.id);
-        result.fold(
-          (failure){
-            emit(const ProductErrorState(messages: 'try again'));
-          }, 
-          (data) {
-            emit(SuccessDelete(deleted: data));
-          }
-          );
-      }
-
-      
-    );
-
-    
-
-
 }
 }

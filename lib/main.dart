@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         // Add more BlocProviders here if needed
       ],
       child: MaterialApp(
-        title: 'Ecommers',
+        title: 'Grocery Shopping App',
         initialRoute: '/',
         routes: {
           '/add-product': (context) => const AddProduct(),

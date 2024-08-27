@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/Colors/colors.dart';
 import '../../../../../core/Text_Style/text_style.dart';
-import '../../bloc/user_states/login_user_states_bloc.dart';
-import '../../bloc/user_states/login_user_states_state.dart';
+import '../../bloc/cart/cart_bloc.dart';
+import '../../bloc/cart/cart_state.dart';
 import 'profile/profile_page.dart';
 
 class HeaderPart extends StatelessWidget {

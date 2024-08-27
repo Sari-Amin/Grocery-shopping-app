@@ -12,8 +12,8 @@ import '../../../../chat/presentation/bloc/chat_event.dart';
 import '../../bloc/grocery_bloc/grocery_bloc.dart';
 import '../../bloc/grocery_bloc/grocery_event.dart';
 import '../../bloc/grocery_bloc/grocery_state.dart';
-import '../../bloc/user_states/login_user_states_bloc.dart';
-import '../../bloc/user_states/login_user_states_event.dart';
+import '../../bloc/cart/cart_bloc.dart';
+import '../../bloc/cart/cart_event.dart';
 import 'header.dart';
 import 'product_image.dart';
 
