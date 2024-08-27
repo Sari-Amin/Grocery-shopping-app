@@ -32,7 +32,7 @@ class _DetailPageState extends State<DetailPage> {
       body: Stack(
         children: [
           Image.asset(
-            'assets/burger.jpg',
+            'assets/logo.jpg',
             fit: BoxFit.cover,
             width: double.infinity,
             height: 300,
