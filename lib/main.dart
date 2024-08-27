@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'features/grocery/presentation/bloc/cart/cart_bloc.dart';
 import 'features/grocery/presentation/bloc/grocery_bloc/grocery_bloc.dart';
-import 'features/grocery/presentation/pages/home/home.dart';
+import 'features/grocery/presentation/pages/home_page.dart';
 import 'injection.dart' as di;
 
 void main() async {
@@ -37,14 +37,8 @@ class MyApp extends StatelessWidget {
         title: 'Grocery Shopping App',
         initialRoute: '/',
         routes: {
-          '/': (context) => const HomeScreen(),
+          '/': (context) => const HomePage(),
           // '/detail': (context) => const DetailPage(),
-          // '/search': (context) => const SearchScreen(),
-          // '/home': (context) => const HomeScreen(),
-          // '/login': (context) => const LoginHomePage(),
-          // '/registration': (context) => const RegisterBody(),
-          // '/chat-message': (context) => const IndividualChatPage(),
-          // '/chat-screen': (context) =>  ChatListPage(),
         },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

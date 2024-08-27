@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../../Domain/entity/grocery_entity.dart';
 
+
+@immutable
 abstract class CartEvent {}
 
 class AddItemEvent extends CartEvent {
