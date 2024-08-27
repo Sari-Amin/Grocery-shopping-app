@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @GenerateMocks(
   [
-    EcommerceRepositories,
+    GroceryReposito,
     EcommerceRemoteDataSourceImpl,
     NetworkInfoImpl,
     InternetConnectionChecker,

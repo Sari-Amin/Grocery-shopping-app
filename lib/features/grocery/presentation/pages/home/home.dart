@@ -13,7 +13,7 @@ import '../../bloc/grocery_bloc/grocery_bloc.dart';
 import '../../bloc/grocery_bloc/grocery_event.dart';
 import '../../bloc/grocery_bloc/grocery_state.dart';
 // import 'header.dart';
-import 'product_image.dart';
+import 'grocery_image.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,9 +24,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final SocketService socketService =  GetIt.instance<SocketService>();
   
-  List<dynamic> dataProduct = [];
+  List<dynamic> allgrocery = [];
   @override
   void initState() {
     
@@ -40,11 +39,42 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = WidthHeight.screenWidth(context);
+    // double width = WidthHeight.screenWidth(context);
     // double height = WidthHeight.screenHeight(context);
-    final SocketService socketService = GetIt.instance<SocketService>();
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+                title: const Text(
+                  'Breakfast',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                backgroundColor: Colors.white,
+                elevation: 0.0,
+                centerTitle: true,
+                leading: GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: const Color(0xffF7F8F8),
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Image.network(
+                      'https://res.cloudinary.com/g5-mobile-track/image/upload/v1723747446/assessment/xhvgqvpt7pghwaeqnids.jpg',
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                ),
+              
+              );,
         body: RefreshIndicator(
           onRefresh: () {
             context.read<GroceryBloc>().add(const LoadAllGroceryEvent());
@@ -144,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   itemCount: state.groceries.length,
                                   itemBuilder: (context, index){
                                     final product = state.groceries[index];
-                                    dataProduct = state.groceries;
+                                    allgrocery = state.groceries;
                                     return GroceryImage(
                                       imageUrl: product.imageUrl,
                                       price: product.price,

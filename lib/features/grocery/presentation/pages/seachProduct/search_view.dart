@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/grocery_bloc/grocery_bloc.dart';
 import '../../bloc/grocery_bloc/grocery_state.dart';
-import '../home/product_image.dart';
+import '../home/grocery_image.dart';
 
 class SearchView extends StatelessWidget {
   final String text;
